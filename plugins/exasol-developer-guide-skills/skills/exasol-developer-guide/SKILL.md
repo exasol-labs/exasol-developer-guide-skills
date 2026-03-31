@@ -1,12 +1,12 @@
 ---
-name: exasol-developer-guide-creator
+name: exasol-developer-guide
 version: 1.0.0
 description: |
   Create and maintain the Exasol developer guide — a simplified, marketable
   documentation site for Exasol features, connectors, and tools. Four workflows:
   explore (audit & plan), new (plan a new section), modify (plan changes to an
   existing section), implement (write RST files to disk).
-  Usage: /exasol-developer-guide-creator [explore | new <topic> | modify <section> | implement]
+  Usage: /exasol-developer-guide [explore | new <topic> | modify <section> | implement]
 allowed-tools:
   - Read
   - Glob
@@ -41,7 +41,7 @@ Exasol Developer Guide Creator
   implement            Write RST files to disk based on the current plan
 
 Example:
-  /exasol-developer-guide-creator new jdbc driver
+  /exasol-developer-guide new jdbc driver
 ```
 
 ---

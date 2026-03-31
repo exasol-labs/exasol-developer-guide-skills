@@ -15,10 +15,10 @@ The result: consistent, professional reStructuredText sections that follow the *
 ## The four skills
 
 ```
-/exasol-developer-guide-creator explore           # audit the whole project
-/exasol-developer-guide-creator new <topic>       # plan a new section
-/exasol-developer-guide-creator modify <section>  # plan changes to an existing section
-/exasol-developer-guide-creator implement         # write the files
+/exasol-developer-guide explore           # audit the whole project
+/exasol-developer-guide new <topic>       # plan a new section
+/exasol-developer-guide modify <section>  # plan changes to an existing section
+/exasol-developer-guide implement         # write the files
 ```
 
 | Skill | What it does |
@@ -36,25 +36,25 @@ The result: consistent, professional reStructuredText sections that follow the *
 
 **Document a new feature**
 ```
-/exasol-developer-guide-creator new kafka connector
+/exasol-developer-guide new kafka connector
 ```
 Claude researches the connector, asks what to include, proposes a folder structure. When you're happy:
 ```
-/exasol-developer-guide-creator implement
+/exasol-developer-guide implement
 ```
 
 **Improve an existing section**
 ```
-/exasol-developer-guide-creator modify UDF
+/exasol-developer-guide modify UDF
 ```
 Claude reads the current files, identifies gaps (missing prerequisites, no code examples, outdated API), agrees a change list with you, then:
 ```
-/exasol-developer-guide-creator implement
+/exasol-developer-guide implement
 ```
 
 **Full project audit**
 ```
-/exasol-developer-guide-creator explore
+/exasol-developer-guide explore
 ```
 Get a scored overview of every section with specific improvement suggestions ranked by impact. Then run `new` or `modify` on the sections you want to fix.
 
@@ -91,12 +91,12 @@ git clone https://github.com/exasol-labs/exasol-developer-guide-skills.git
 
 **Step 2 — Copy it into Claude Code's skills folder:**
 ```bash
-cp -r exasol-developer-guide-skills ~/.claude/skills/exasol-developer-guide-creator
+cp -r exasol-developer-guide-skills ~/.claude/skills/exasol-developer-guide
 ```
 
 **Step 3 — Restart Claude Code.**
 
-The skill will appear in your `/skills` list as `exasol-developer-guide-creator`.
+The skill will appear in your `/skills` list as `exasol-developer-guide`.
 
 ---
 
