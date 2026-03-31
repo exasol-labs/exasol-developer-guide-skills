@@ -1,83 +1,130 @@
-# Exasol Developer Guide Creator Skills
+# Exasol Developer Guide Creator
 
-A Claude Code skill bundle for creating and maintaining the Exasol developer guide — a simplified, marketable documentation site for Exasol features, connectors, and tools.
+> AI-powered Claude Code skills for building and maintaining professional Exasol documentation — research, plan, and write RST content without leaving your editor.
 
-## Usage
+---
 
-All four workflows are available through a single command:
+## What it does
+
+Writing great technical documentation is slow. You switch between the Exasol docs, GitHub, PyPI, your editor, and a blank page — then spend hours figuring out the right structure. This plugin gives Claude Code four focused skills that handle the research, structure, and writing for you.
+
+The result: consistent, professional reStructuredText sections that follow the **What → How → Benefits** standard used throughout the Exasol developer guide.
+
+---
+
+## The four skills
 
 ```
-/exasol-developer-guide-creator explore
-/exasol-developer-guide-creator new <topic>
-/exasol-developer-guide-creator modify <section>
+/exasol-developer-guide-creator explore           # audit the whole project
+/exasol-developer-guide-creator new <topic>       # plan a new section
+/exasol-developer-guide-creator modify <section>  # plan changes to an existing section
+/exasol-developer-guide-creator implement         # write the files
+```
+
+| Skill | What it does |
+|---|---|
+| **explore** | Reads your entire `doc/` tree, rates each section against the content standard, and produces a prioritised improvement plan via interactive Q&A |
+| **new `<topic>`** | Searches `docs.exasol.com`, `github.com/exasol`, and PyPI for your topic, asks clarifying questions, then outputs a complete file-and-folder plan |
+| **modify `<section>`** | Reads the existing section, optionally checks for upstream changes online, Q&As with you to agree scope, and outputs a per-file change list |
+| **implement** | Takes the plan from `new` or `modify` and writes the actual `.rst` files — headings, code blocks, toctrees, cross-references, all formatted correctly |
+
+> **Planning is always separate from writing.** You review and approve the plan before a single file is touched.
+
+---
+
+## Typical workflows
+
+**Document a new feature**
+```
+/exasol-developer-guide-creator new kafka connector
+```
+Claude researches the connector, asks what to include, proposes a folder structure. When you're happy:
+```
 /exasol-developer-guide-creator implement
 ```
 
-| Subcommand         | Description                                                                                                                                           |
-| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `explore`          | Audit the existing doc structure, rate quality against the What→How→Benefits standard, do interactive Q&A, and produce a prioritised improvement plan |
-| `new <topic>`      | Plan a brand-new section — searches docs.exasol.com, github.com/exasol, and PyPI, asks clarifying questions, outputs a full file/structure plan       |
-| `modify <section>` | Plan changes to an existing section — reads current content, optionally researches updates online, Q&A to agree scope, outputs a per-file change list |
-| `implement`        | Write the actual RST files to disk (requires a plan from `new` or `modify` earlier in the conversation)                                               |
-
-## Workflow
-
+**Improve an existing section**
 ```
-# Document a new feature
-/exasol-developer-guide-creator new kafka connector
-  → review plan
-  → /exasol-developer-guide-creator implement
-
-# Improve an existing section
 /exasol-developer-guide-creator modify UDF
-  → review plan
-  → /exasol-developer-guide-creator implement
-
-# Full project audit
-/exasol-developer-guide-creator explore
-  → /exasol-developer-guide-creator new or modify
-  → /exasol-developer-guide-creator implement
 ```
+Claude reads the current files, identifies gaps (missing prerequisites, no code examples, outdated API), agrees a change list with you, then:
+```
+/exasol-developer-guide-creator implement
+```
+
+**Full project audit**
+```
+/exasol-developer-guide-creator explore
+```
+Get a scored overview of every section with specific improvement suggestions ranked by impact. Then run `new` or `modify` on the sections you want to fix.
+
+---
 
 ## Installation
 
-### Via Claude Marketplace (recommended)
+### Recommended: Claude Marketplace
 
-Run these two commands in Claude Code:
+This is the easiest way — no Git or file management required. Just open Claude Code and run two commands, one after the other.
 
+**Step 1 — Add the plugin to your marketplace:**
 ```
 /plugin marketplace add exasol-labs/exasol-developer-guide-skills
+```
+
+**Step 2 — Install it into Claude Code:**
+```
 /plugin install exasol-developer-guide-skills@exasol-developer-guide-skills
 ```
 
-### Manual installation
+That's it. The skill is now available. Type `/skills` to confirm it's listed.
 
-1. Clone this repository and copy the folder into `~/.claude/skills/`:
+---
 
-   ```bash
-   git clone https://github.com/exasol-labs/exasol-developer-guide-skills.git
-   cp -r exasol-developer-guide-skills ~/.claude/skills/exasol-developer-guide-creator
-   ```
+### Alternative: Manual installation
 
-2. Restart Claude Code — the skill will appear in your `/skills` list as `exasol-developer-guide-creator`.
+Use this method if you prefer to manage files yourself or don't have marketplace access.
 
-## Project requirements
+**Step 1 — Clone the repository:**
+```bash
+git clone https://github.com/exasol-labs/exasol-developer-guide-skills.git
+```
 
-These skills are designed for a documentation project with the following structure:
+**Step 2 — Copy it into Claude Code's skills folder:**
+```bash
+cp -r exasol-developer-guide-skills ~/.claude/skills/exasol-developer-guide-creator
+```
+
+**Step 3 — Restart Claude Code.**
+
+The skill will appear in your `/skills` list as `exasol-developer-guide-creator`.
+
+---
+
+## Project structure expected
+
+The skills are designed for a Sphinx-based documentation project:
 
 ```
 your-project/
 └── doc/
-    ├── index.rst          ← top-level Sphinx toctree
-    ├── connect_to_exasol/ ← example: connector section
-    ├── gen_ai/            ← example: tutorial section
+    ├── index.rst          ← top-level toctree
+    ├── connect_to_exasol/ ← connector section
+    ├── gen_ai/            ← tutorial section
     └── ...
 ```
 
-- **File format:** reStructuredText (`.rst`), rendered by Sphinx
-- **Target audience:** Data professionals and developers
-- **Content standard:** What → How (with code examples) → Benefits + Real-world use cases
+- **Format:** reStructuredText (`.rst`) rendered by Sphinx
+- **Audience:** Data professionals and developers
+- **Content standard:** What → How (with working code examples) → Benefits + real-world use cases
 
-## Customising for a different project
+---
+
+## Adapting to a different project
 
 To point these skills at a different documentation project, update the `**Project path:**` line in each `SKILL.md` file inside the sub-skill folders.
+
+---
+
+## Author
+
+Muhammad Abdullah Farooqui · [abdullahfarooqui094@gmail.com](mailto:abdullahfarooqui094@gmail.com)
