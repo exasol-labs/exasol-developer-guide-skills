@@ -1,4 +1,4 @@
-# Exasol Developer Guide Creator
+# Exasol Developer Guide Creator Skills
 
 A Claude Code skill bundle for creating and maintaining the Exasol developer guide — a simplified, marketable documentation site for Exasol features, connectors, and tools.
 
@@ -13,12 +13,12 @@ All four workflows are available through a single command:
 /exasol-developer-guide-creator implement
 ```
 
-| Subcommand | Description |
-|---|---|
-| `explore` | Audit the existing doc structure, rate quality against the What→How→Benefits standard, do interactive Q&A, and produce a prioritised improvement plan |
-| `new <topic>` | Plan a brand-new section — searches docs.exasol.com, github.com/exasol, and PyPI, asks clarifying questions, outputs a full file/structure plan |
+| Subcommand         | Description                                                                                                                                           |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `explore`          | Audit the existing doc structure, rate quality against the What→How→Benefits standard, do interactive Q&A, and produce a prioritised improvement plan |
+| `new <topic>`      | Plan a brand-new section — searches docs.exasol.com, github.com/exasol, and PyPI, asks clarifying questions, outputs a full file/structure plan       |
 | `modify <section>` | Plan changes to an existing section — reads current content, optionally researches updates online, Q&A to agree scope, outputs a per-file change list |
-| `implement` | Write the actual RST files to disk (requires a plan from `new` or `modify` earlier in the conversation) |
+| `implement`        | Write the actual RST files to disk (requires a plan from `new` or `modify` earlier in the conversation)                                               |
 
 ## Workflow
 
