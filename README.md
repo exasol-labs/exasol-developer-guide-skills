@@ -41,10 +41,22 @@ All four workflows are available through a single command:
 
 ## Installation
 
-1. Copy this folder into `~/.claude/skills/`:
+### Via Claude Marketplace (recommended)
+
+Run these two commands in Claude Code:
+
+```
+/plugin marketplace add exasol-labs/exasol-developer-guide-skills
+/plugin install exasol-developer-guide-skills@exasol-developer-guide-skills
+```
+
+### Manual installation
+
+1. Clone this repository and copy the folder into `~/.claude/skills/`:
 
    ```bash
-   cp -r exasol-developer-guide-creator ~/.claude/skills/
+   git clone https://github.com/exasol-labs/exasol-developer-guide-skills.git
+   cp -r exasol-developer-guide-skills ~/.claude/skills/exasol-developer-guide-creator
    ```
 
 2. Restart Claude Code — the skill will appear in your `/skills` list as `exasol-developer-guide-creator`.
