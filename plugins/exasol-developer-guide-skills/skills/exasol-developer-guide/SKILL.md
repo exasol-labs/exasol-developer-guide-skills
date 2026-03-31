@@ -6,7 +6,7 @@ description: |
   documentation site for Exasol features, connectors, and tools. Four workflows:
   explore (audit & plan), new (plan a new section), modify (plan changes to an
   existing section), implement (write RST files to disk).
-  Usage: /exasol-developer-guide [explore | new <topic> | modify <section> | implement]
+  Usage: /exasol-developer-guide (shows this help menu)
 allowed-tools:
   - Read
   - Glob
@@ -19,29 +19,17 @@ allowed-tools:
   - AskUserQuestion
 ---
 
-## Routing
+## Help display
 
-Read the first word of the user's arguments to determine which workflow to run:
+Print the following usage menu and stop. Do not run any workflow.
 
-| Argument | Workflow |
-|---|---|
-| `explore` | Audit the doc structure, Q&A, produce improvement plan |
-| `new [topic]` | Plan a new section for a feature/connector/tool |
-| `modify [section]` | Plan changes to an existing section |
-| `implement` | Write RST files to disk from a plan in this conversation |
-| *(none)* | Print the usage menu below and stop |
-
-**Usage menu (show if no argument given):**
 ```
-Exasol Developer Guide Creator
+Exasol Developer Guide
 
-  explore              Audit the doc structure and co-create an improvement plan
-  new <topic>          Plan a new section (e.g. new kafka connector)
-  modify <section>     Plan changes to an existing section (e.g. modify UDF)
-  implement            Write RST files to disk based on the current plan
-
-Example:
-  /exasol-developer-guide new jdbc driver
+  /exasol-developer-guide:explore              Audit the doc structure and co-create an improvement plan
+  /exasol-developer-guide:new <topic>          Plan a new section (e.g. /exasol-developer-guide:new kafka connector)
+  /exasol-developer-guide:modify <section>     Plan changes to an existing section (e.g. /exasol-developer-guide:modify UDF)
+  /exasol-developer-guide:implement            Write RST files to disk based on the current plan
 ```
 
 ---

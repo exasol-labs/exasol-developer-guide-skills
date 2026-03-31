@@ -15,18 +15,18 @@ The result: consistent, professional reStructuredText sections that follow the *
 ## The four skills
 
 ```
-/exasol-developer-guide explore           # audit the whole project
-/exasol-developer-guide new <topic>       # plan a new section
-/exasol-developer-guide modify <section>  # plan changes to an existing section
-/exasol-developer-guide implement         # write the files
+/exasol-developer-guide:explore           # audit the whole project
+/exasol-developer-guide:new <topic>       # plan a new section
+/exasol-developer-guide:modify <section>  # plan changes to an existing section
+/exasol-developer-guide:implement         # write the files
 ```
 
 | Skill | What it does |
 |---|---|
-| **explore** | Reads your entire `doc/` tree, rates each section against the content standard, and produces a prioritised improvement plan via interactive Q&A |
-| **new `<topic>`** | Searches `docs.exasol.com`, `github.com/exasol`, and PyPI for your topic, asks clarifying questions, then outputs a complete file-and-folder plan |
-| **modify `<section>`** | Reads the existing section, optionally checks for upstream changes online, Q&As with you to agree scope, and outputs a per-file change list |
-| **implement** | Takes the plan from `new` or `modify` and writes the actual `.rst` files — headings, code blocks, toctrees, cross-references, all formatted correctly |
+| **:explore** | Reads your entire `doc/` tree, rates each section against the content standard, and produces a prioritised improvement plan via interactive Q&A |
+| **:new `<topic>`** | Searches `docs.exasol.com`, `github.com/exasol`, and PyPI for your topic, asks clarifying questions, then outputs a complete file-and-folder plan |
+| **:modify `<section>`** | Reads the existing section, optionally checks for upstream changes online, Q&As with you to agree scope, and outputs a per-file change list |
+| **:implement** | Takes the plan from `:new` or `:modify` and writes the actual `.rst` files — headings, code blocks, toctrees, cross-references, all formatted correctly |
 
 > **Planning is always separate from writing.** You review and approve the plan before a single file is touched.
 
@@ -36,27 +36,27 @@ The result: consistent, professional reStructuredText sections that follow the *
 
 **Document a new feature**
 ```
-/exasol-developer-guide new kafka connector
+/exasol-developer-guide:new kafka connector
 ```
 Claude researches the connector, asks what to include, proposes a folder structure. When you're happy:
 ```
-/exasol-developer-guide implement
+/exasol-developer-guide:implement
 ```
 
 **Improve an existing section**
 ```
-/exasol-developer-guide modify UDF
+/exasol-developer-guide:modify UDF
 ```
 Claude reads the current files, identifies gaps (missing prerequisites, no code examples, outdated API), agrees a change list with you, then:
 ```
-/exasol-developer-guide implement
+/exasol-developer-guide:implement
 ```
 
 **Full project audit**
 ```
-/exasol-developer-guide explore
+/exasol-developer-guide:explore
 ```
-Get a scored overview of every section with specific improvement suggestions ranked by impact. Then run `new` or `modify` on the sections you want to fix.
+Get a scored overview of every section with specific improvement suggestions ranked by impact. Then run `:new` or `:modify` on the sections you want to fix.
 
 ---
 

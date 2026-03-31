@@ -1,11 +1,11 @@
 ---
-name: exasol-new
+name: exasol-developer-guide:new
 version: 1.0.0
 description: |
   Plan a new developer guide section for an Exasol feature, connector, or tool.
   Searches docs.exasol.com, github.com/exasol, and PyPI for content, asks clarifying
-  questions, then produces a structured plan ready for /exasol-implement.
-  Usage: /exasol-new [feature or topic name]
+  questions, then produces a structured plan ready for /exasol-developer-guide:implement.
+  Usage: /exasol-developer-guide:new [feature or topic name]
 allowed-tools:
   - Read
   - Glob
@@ -103,4 +103,4 @@ State exactly:
 Note any `:ref:` links to/from existing sections that should be added.
 
 **Do NOT write any files. This skill produces a plan only.**
-**The user will run `/exasol-implement` to write the files once the plan is approved.**
+**The user will run `/exasol-developer-guide:implement` to write the files once the plan is approved.**

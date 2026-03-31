@@ -1,12 +1,12 @@
 ---
-name: exasol-modify
+name: exasol-developer-guide:modify
 version: 1.0.0
 description: |
   Plan modifications to an existing developer guide section in
   C:\Users\mufa\documents\developer-documentation\doc\. Reads current content,
   optionally researches updates online, does interactive Q&A, then produces a
-  specific per-file modification plan ready for /exasol-implement.
-  Usage: /exasol-modify [section name or path]
+  specific per-file modification plan ready for /exasol-developer-guide:implement.
+  Usage: /exasol-developer-guide:modify [section name or path]
 allowed-tools:
   - Read
   - Glob
@@ -96,4 +96,4 @@ For each file to be changed, state:
 If a new file needs to be created as part of the modification, note it and its proposed content outline.
 
 **Do NOT write any files. This skill produces a plan only.**
-**The user will run `/exasol-implement` to apply the changes once the plan is approved.**
+**The user will run `/exasol-developer-guide:implement` to apply the changes once the plan is approved.**

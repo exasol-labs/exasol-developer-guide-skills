@@ -1,8 +1,8 @@
 ---
-name: exasol-implement
+name: exasol-developer-guide:implement
 version: 1.0.0
 description: |
-  Write RST files to disk based on a plan from /exasol-new or /exasol-modify.
+  Write RST files to disk based on a plan from /exasol-developer-guide:new or /exasol-developer-guide:modify.
   Confirms before writing, creates all files and folders, updates parent toctrees,
   and reports everything created or modified. Requires a plan in the conversation.
 allowed-tools:
@@ -16,8 +16,8 @@ allowed-tools:
 
 ## Prerequisites
 
-A plan **must already exist** in this conversation from `/exasol-new` or `/exasol-modify`.
-If no plan is present, respond: "No plan found. Please run `/exasol-new` or `/exasol-modify` first."
+A plan **must already exist** in this conversation from `/exasol-developer-guide:new` or `/exasol-developer-guide:modify`.
+If no plan is present, respond: "No plan found. Please run `/exasol-developer-guide:new` or `/exasol-developer-guide:modify` first."
 
 ## Context
 

@@ -1,5 +1,5 @@
 ---
-name: exasol-explore
+name: exasol-developer-guide:explore
 version: 1.0.0
 description: |
   Audit the Exasol developer guide structure at C:\Users\mufa\documents\developer-documentation\doc\.
@@ -74,6 +74,6 @@ Based on Q&A responses, produce a concrete action plan. For each proposed change
 - Brief description of what will change and why
 - Priority: High / Medium / Low
 
-Note which changes need `/exasol-new` (new sections), `/exasol-modify` (restructuring), or can go straight to `/exasol-implement` (simple additions).
+Note which changes need `/exasol-developer-guide:new` (new sections), `/exasol-developer-guide:modify` (restructuring), or can go straight to `/exasol-developer-guide:implement` (simple additions).
 
 **Do NOT write any files. This skill is exploration and planning only.**
