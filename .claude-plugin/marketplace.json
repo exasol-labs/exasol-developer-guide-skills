@@ -7,7 +7,10 @@
   "plugins": [
     {
       "name": "exasol-developer-guide-skills",
-      "source": ".",
+      "source": {
+        "source": "github",
+        "repo": "exasol-labs/exasol-developer-guide-skills"
+      },
       "description": "Create and modify sections of the Exasol Developer Guide",
       "version": "1.0.0",
       "author": {
