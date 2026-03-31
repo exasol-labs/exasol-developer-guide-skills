@@ -1,0 +1,18 @@
+{
+  "name": "exasol-developer-guide-skills",
+  "owner": {
+    "name": "Muhammad Abdullah Farooqui",
+    "email": "abdullahfarooqui094@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "exasol-developer-guide-skills",
+      "source": ".",
+      "description": "Create and modify sections of the Exasol Developer Guide",
+      "version": "1.0.0",
+      "author": {
+        "name": "Muhammad Abdullah Farooqui"
+      }
+    }
+  ]
+}
