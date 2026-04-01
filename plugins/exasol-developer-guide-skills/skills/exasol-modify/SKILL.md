@@ -19,26 +19,46 @@ allowed-tools:
 
 ## Context
 
-- **Project root:** Detect by running `git rev-parse --show-toplevel` — do not use hardcoded paths
-- **Docs root:** `<project-root>/doc/`
+- **Project root:** Ask the user for their local repo path, or clone it — do not use hardcoded paths
+- **Docs root:** `<repo-root>/doc/`
 - **File format:** reStructuredText (`.rst`) rendered by Sphinx
 - **Target audience:** Data professionals and developers — professional but accessible
 - **Standard structure:** What → How (step-by-step with code) → Benefits + Real-world use cases + Examples
 - **Gold standard:** `doc/connect_to_exasol/` and `doc/gen_ai/ai_text_summary/`
 
-## Step 1 — Locate the Section
+## Step 1 — Locate the Repository
 
-Detect the project root:
+Ask the user:
+> "Do you have a local folder for the developer-documentation repo? If yes, provide the path. If not, just say no and I will clone it."
+
+**If the user provides a folder path:**
+- Use that folder as the working directory for all subsequent steps.
+- Run `git pull` inside it to ensure it is up to date:
+
 ```bash
-git rev-parse --show-toplevel
+cd <provided-folder>
+git pull
 ```
 
-If the user provided a section name or path, resolve it to a folder under `<project-root>/doc/`. If not, ask:
+**If the user does not provide a folder:**
+- Clone the repo into the current working directory:
+
+```bash
+git clone https://github.com/exasol/developer-documentation.git
+```
+
+- Use the newly cloned directory for all subsequent steps.
+
+All file operations happen inside the resolved directory — do not use any hardcoded absolute paths.
+
+## Step 2 — Locate the Section
+
+If the user provided a section name or path, resolve it to a folder under `<repo-root>/doc/`. If not, ask:
 > "Which section do you want to modify?"
 
 Use Glob to list all files in the section folder, then Read every file.
 
-## Step 2 — Assess the Current Content
+## Step 3 — Assess the Current Content
 
 Evaluate the section against the developer guide standard:
 
@@ -57,7 +77,7 @@ Evaluate the section against the developer guide standard:
 - Content too dense — needs splitting or simplifying
 - Content too thin — needs expanding
 
-## Step 3 — Research Online (if relevant)
+## Step 4 — Research Online (if relevant)
 
 If the section covers a specific tool, connector, or API, check for updates:
 - Search: `site:docs.exasol.com [topic]`
@@ -66,7 +86,7 @@ If the section covers a specific tool, connector, or API, check for updates:
 
 Only fetch URLs if you find something likely to contain useful updated information.
 
-## Step 4 — Interactive Q&A
+## Step 5 — Interactive Q&A
 
 Present your assessment clearly:
 
@@ -85,7 +105,7 @@ Then ask:
 
 Wait for responses before producing the plan.
 
-## Step 5 — Sketch the Modification Plan
+## Step 6 — Sketch the Modification Plan
 
 For each file to be changed, state:
 

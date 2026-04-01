@@ -17,20 +17,40 @@ allowed-tools:
 
 ## Context
 
-- **Project root:** Detect by running `git rev-parse --show-toplevel` — do not use hardcoded paths
-- **Docs root:** `<project-root>/doc/`
+- **Project root:** Ask the user for their local repo path, or clone it — do not use hardcoded paths
+- **Docs root:** `<repo-root>/doc/`
 - **File format:** reStructuredText (`.rst`) rendered by Sphinx
 - **Target audience:** Data professionals and developers — professional but accessible
 - **Gold standard sections:** `doc/connect_to_exasol/` and `doc/gen_ai/ai_text_summary/`
 
-## Step 1 — Detect Project Root and Explore
+## Step 1 — Locate the Repository
 
-First detect the project root:
+Ask the user:
+> "Do you have a local folder for the developer-documentation repo? If yes, provide the path. If not, just say no and I will clone it."
+
+**If the user provides a folder path:**
+- Use that folder as the working directory for all subsequent steps.
+- Run `git pull` inside it to ensure it is up to date:
+
 ```bash
-git rev-parse --show-toplevel
+cd <provided-folder>
+git pull
 ```
 
-Then read the following in parallel using Glob and Read tools (relative to that root):
+**If the user does not provide a folder:**
+- Clone the repo into the current working directory:
+
+```bash
+git clone https://github.com/exasol/developer-documentation.git
+```
+
+- Use the newly cloned directory for all subsequent steps.
+
+All file operations happen inside the resolved directory — do not use any hardcoded absolute paths.
+
+## Step 2 — Explore
+
+Read the following in parallel using Glob and Read tools (relative to the resolved repo root):
 - Full folder/file tree of `doc/` (Glob pattern: `doc/**/*`)
 - `doc/index.rst` — top-level toctree
 - Every `index.rst` inside section subfolders
@@ -38,7 +58,7 @@ Then read the following in parallel using Glob and Read tools (relative to that 
 
 Do NOT skip any section folder. Read actual file contents, not just filenames.
 
-## Step 2 — Assess Each Section
+## Step 3 — Assess Each Section
 
 Evaluate every section against the developer guide standard:
 
@@ -55,7 +75,7 @@ Evaluate every section against the developer guide standard:
 - Cross-references to related sections present where relevant
 - Follows What → How → Benefits structure
 
-## Step 3 — Interactive Q&A
+## Step 4 — Interactive Q&A
 
 Present findings in this structure:
 
@@ -72,7 +92,7 @@ Then ask targeted questions:
 
 Wait for user responses before proceeding.
 
-## Step 4 — Sketch the Plan
+## Step 5 — Sketch the Plan
 
 Based on Q&A responses, produce a concrete action plan. For each proposed change state:
 - Section name and file(s) affected
