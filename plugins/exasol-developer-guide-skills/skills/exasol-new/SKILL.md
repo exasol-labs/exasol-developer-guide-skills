@@ -1,6 +1,6 @@
 ---
 name: exasol-developer-guide:new
-version: 1.0.0
+version: 2.0.0
 description: |
   Plan a new developer guide section for an Exasol feature, connector, or tool.
   Searches docs.exasol.com, github.com/exasol, and PyPI for content, asks clarifying
@@ -10,6 +10,7 @@ allowed-tools:
   - Read
   - Glob
   - Grep
+  - Bash
   - WebSearch
   - WebFetch
   - AskUserQuestion
@@ -17,8 +18,8 @@ allowed-tools:
 
 ## Context
 
-- **Project path:** `C:\Users\mufa\documents\developer-documentation`
-- **Docs root:** `doc/`
+- **Project root:** Detect by running `git rev-parse --show-toplevel` — do not use hardcoded paths
+- **Docs root:** `<project-root>/doc/`
 - **File format:** reStructuredText (`.rst`) rendered by Sphinx
 - **Target audience:** Data professionals and developers — professional but accessible
 - **Gold standard:** `doc/connect_to_exasol/` (connectors) and `doc/gen_ai/ai_text_summary/` (tutorials)
@@ -50,7 +51,12 @@ Fetch the most relevant pages found. Extract:
 
 ## Step 3 — Read the Existing Project
 
-Read to ensure the new section fits project conventions:
+Detect the project root:
+```bash
+git rev-parse --show-toplevel
+```
+
+Then read the following (relative to that root) to ensure the new section fits project conventions:
 - `doc/index.rst` — current top-level toctree structure
 - `doc/connect_to_exasol/index.rst` and one content file from it
 - `doc/gen_ai/ai_text_summary/index.rst`

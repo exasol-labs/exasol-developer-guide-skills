@@ -1,16 +1,17 @@
 ---
 name: exasol-developer-guide:modify
-version: 1.0.0
+version: 2.0.0
 description: |
-  Plan modifications to an existing developer guide section in
-  C:\Users\mufa\documents\developer-documentation\doc\. Reads current content,
-  optionally researches updates online, does interactive Q&A, then produces a
-  specific per-file modification plan ready for /exasol-developer-guide:implement.
+  Plan modifications to an existing developer guide section.
+  Detects the project root from git, reads current content, optionally researches
+  updates online, does interactive Q&A, then produces a specific per-file modification
+  plan ready for /exasol-developer-guide:implement.
   Usage: /exasol-developer-guide:modify [section name or path]
 allowed-tools:
   - Read
   - Glob
   - Grep
+  - Bash
   - WebSearch
   - WebFetch
   - AskUserQuestion
@@ -18,8 +19,8 @@ allowed-tools:
 
 ## Context
 
-- **Project path:** `C:\Users\mufa\documents\developer-documentation`
-- **Docs root:** `doc/`
+- **Project root:** Detect by running `git rev-parse --show-toplevel` — do not use hardcoded paths
+- **Docs root:** `<project-root>/doc/`
 - **File format:** reStructuredText (`.rst`) rendered by Sphinx
 - **Target audience:** Data professionals and developers — professional but accessible
 - **Standard structure:** What → How (step-by-step with code) → Benefits + Real-world use cases + Examples
@@ -27,7 +28,12 @@ allowed-tools:
 
 ## Step 1 — Locate the Section
 
-If the user provided a section name or path, resolve it to a folder in `doc/`. If not, ask:
+Detect the project root:
+```bash
+git rev-parse --show-toplevel
+```
+
+If the user provided a section name or path, resolve it to a folder under `<project-root>/doc/`. If not, ask:
 > "Which section do you want to modify?"
 
 Use Glob to list all files in the section folder, then Read every file.

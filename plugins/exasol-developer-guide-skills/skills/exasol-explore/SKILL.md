@@ -1,14 +1,15 @@
 ---
 name: exasol-developer-guide:explore
-version: 1.0.0
+version: 2.0.0
 description: |
-  Audit the Exasol developer guide structure at C:\Users\mufa\documents\developer-documentation\doc\.
-  Crawls all sections, rates quality against the What→How→Benefits standard, then does
+  Audit the Exasol developer guide structure. Detects the project root from git,
+  crawls all sections, rates quality against the What→How→Benefits standard, then does
   interactive Q&A with the user to co-create a prioritised improvement plan.
 allowed-tools:
   - Read
   - Glob
   - Grep
+  - Bash
   - AskUserQuestion
   - WebSearch
   - WebFetch
@@ -16,15 +17,20 @@ allowed-tools:
 
 ## Context
 
-- **Project path:** `C:\Users\mufa\documents\developer-documentation`
-- **Docs root:** `doc/`
+- **Project root:** Detect by running `git rev-parse --show-toplevel` — do not use hardcoded paths
+- **Docs root:** `<project-root>/doc/`
 - **File format:** reStructuredText (`.rst`) rendered by Sphinx
 - **Target audience:** Data professionals and developers — professional but accessible
 - **Gold standard sections:** `doc/connect_to_exasol/` and `doc/gen_ai/ai_text_summary/`
 
-## Step 1 — Explore the Project
+## Step 1 — Detect Project Root and Explore
 
-Read the following in parallel using Glob and Read tools:
+First detect the project root:
+```bash
+git rev-parse --show-toplevel
+```
+
+Then read the following in parallel using Glob and Read tools (relative to that root):
 - Full folder/file tree of `doc/` (Glob pattern: `doc/**/*`)
 - `doc/index.rst` — top-level toctree
 - Every `index.rst` inside section subfolders

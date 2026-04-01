@@ -1,10 +1,11 @@
 ---
 name: exasol-developer-guide:implement
-version: 1.0.0
+version: 2.0.0
 description: |
   Write RST files to disk based on a plan from /exasol-developer-guide:new or /exasol-developer-guide:modify.
-  Confirms before writing, creates all files and folders, updates parent toctrees,
-  and reports everything created or modified. Requires a plan in the conversation.
+  Clones the GitHub repo fresh, implements changes, sets up a Python virtual environment,
+  runs poetry install and the Sphinx build to verify, fixes any errors, then pushes to
+  a new branch on GitHub. Asks the user for the branch name before starting.
 allowed-tools:
   - Read
   - Glob
@@ -12,46 +13,63 @@ allowed-tools:
   - Write
   - Edit
   - Bash
+  - AskUserQuestion
 ---
 
-## Prerequisites
+## Step 0 — Check for Plan
 
-A plan **must already exist** in this conversation from `/exasol-developer-guide:new` or `/exasol-developer-guide:modify`.
-If no plan is present, respond: "No plan found. Please run `/exasol-developer-guide:new` or `/exasol-developer-guide:modify` first."
-
-## Context
-
-- **Project path:** `C:\Users\mufa\documents\developer-documentation`
-- **Docs root:** `doc/`
-- **File format:** reStructuredText (`.rst`) rendered by Sphinx
-- **Target audience:** Data professionals and developers — professional but accessible
-- **Standard structure:** What → How (step-by-step with code) → Benefits + Real-world use cases + Examples
+Look for a plan in the current conversation from `/exasol-developer-guide:new` or `/exasol-developer-guide:modify`.
+If no plan is present, respond:
+> "No plan found. Please run `/exasol-developer-guide:new` or `/exasol-developer-guide:modify` first."
 
 ---
 
-## Step 1 — Confirm
+## Step 1 — Ask for Branch Name
 
-Summarise what will be written or modified from the plan:
-- Files to be created (with paths)
-- Files to be modified (with paths)
-- Toctree entries to be added
+Ask the user:
+> "What should the Git branch name be for these changes?"
 
-Ask: "Ready to implement — shall I proceed?"
-
-Wait for confirmation before writing anything.
+Wait for the response before continuing.
 
 ---
 
-## Step 2 — Implement Each File
+## Step 2 — Locate the Repository
 
-Write or edit each file according to the plan. Strictly follow the RST conventions below.
+Ask the user:
+> "Do you have a local folder for the developer-documentation repo? If yes, provide the path. If not, just say no and I will clone it."
+
+**If the user provides a folder path:**
+- Use that folder as the working directory for all subsequent steps
+- Run `git pull` inside it to ensure it is on the latest version:
+
+```bash
+cd <provided-folder>
+git pull
+```
+
+**If the user does not provide a folder:**
+- Clone the repo into the current working directory:
+
+```bash
+git clone https://github.com/exasol/developer-documentation.git
+```
+
+- Use the newly cloned directory for all subsequent steps.
+
+All file operations (reads and writes) happen inside the resolved directory — do not use any hardcoded absolute paths.
+
+---
+
+## Step 3 — Implement Each File
+
+Write or edit each RST file in the cloned directory according to the plan. Follow all RST conventions below strictly.
 
 ### RST Formatting Rules
 
 #### Heading Levels
 
 ```
-Document Title (H1) — overline AND underline with =
+Document Title (H1) — overline AND underline with =, both must be >= title length
 ===================
 Document Title
 ===================
@@ -69,7 +87,7 @@ Sub-subsection
 ^^^^^^^^^^^^^^
 ```
 
-The overline/underline must be at least as long as the text.
+**Critical:** Count the exact character length of the title text. The overline and underline must be at least that many characters. Off-by-one causes a build error.
 
 #### Code Blocks
 
@@ -156,14 +174,13 @@ Do NOT include `.rst` extension in toctree entries.
 - **Sections stay focused** — split into subsections if content exceeds ~60 lines
 - **Cross-references:** Add `:ref:` links to related sections where relevant
 - **External links:** Use real URLs from the plan research only — never invent URLs
-- **Code examples:** Use realistic but simple values (e.g., schema `DEMO`, table `EMPLOYEES`)
 
 ---
 
-## Step 3 — Update Toctrees
+## Step 5 — Update Toctrees
 
 **New section folder created:**
-1. Read `doc/index.rst`
+1. Read `doc/index.rst` in the cloned directory
 2. Add the new entry to the toctree at the position specified in the plan
 3. Write the updated `doc/index.rst`
 
@@ -174,11 +191,53 @@ Do NOT include `.rst` extension in toctree entries.
 
 ---
 
-## Step 4 — Report
+## Step 6 — Set Up Environment and Test the Build
 
-After all files are written, output a summary:
+From inside the cloned directory, run:
+
+```bash
+# Create virtual environment
+python -m venv .venv
+
+# Activate it (Windows bash / Git Bash)
+source .venv/Scripts/activate
+
+# Install project dependencies via Poetry
+poetry install
+
+# Run the Sphinx docs build
+poetry run nox -s docs:build
+```
+
+**If the build reports warnings treated as errors:**
+- Read the error output carefully to identify the file and line number
+- Fix the RST issue in the relevant file (common causes: overline too short, bad indentation, missing blank line before directive)
+- Re-run `poetry run nox -s docs:build`
+- Repeat until the build reports: `build succeeded`
+
+---
+
+## Step 7 — Commit and Push
+
+Once the build succeeds:
+
+```bash
+git checkout -b <branch-name>
+git add doc/
+git commit -m "Add documentation: <short description from plan>"
+git push -u origin <branch-name>
+```
+
+---
+
+## Step 8 — Report
+
+Output a final summary:
 
 ```
+Repository cloned from: https://github.com/exasol/developer-documentation.git
+Branch pushed:          <branch-name>
+
 Files created:
   doc/[section]/index.rst
   doc/[section]/overview.rst
@@ -187,6 +246,10 @@ Files created:
 Files modified:
   doc/index.rst  (added toctree entry: [section]/index)
   ...
+
+Build: PASSED
+
+Create PR at: https://github.com/<org>/<repo>/pull/new/<branch-name>
 ```
 
-If anything in the plan was unclear or could not be fully implemented, note it so the user can follow up.
+If anything from the plan could not be fully implemented, note it so the user can follow up.
